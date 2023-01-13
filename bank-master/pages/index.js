@@ -4,8 +4,7 @@ import { useRouter } from "next/router";
 import dbConnect from "../services/dbConnect";
 import Landing from "./landing";
 
-export default function HomePage() {
-  const router = useRouter();
+export default function Home() {
   return (
     <>
       <Landing />
