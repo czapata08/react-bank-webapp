@@ -15,11 +15,11 @@ import {
   NavbarText,
 } from "reactstrap";
 import { useAuth } from "../context/user.context";
-import { authenticatedUser } from "../pages/signin";
-import { getUser } from "../lib/getUser";
-import { dbConnect } from "../services/dbConnect";
+// import { authenticatedUser } from "../pages/signin";
+// import { getUser } from "../lib/getUser";
+// import { dbConnect } from "../services/dbConnect";
 
-function Layout({ children }) {
+export default function Layout({ children }) {
   const [isOpen, setIsOpen] = useState(false);
   // const [expand, setExpand] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -85,5 +85,3 @@ function Layout({ children }) {
     </div>
   );
 }
-
-export default Layout;
