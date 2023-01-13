@@ -7,8 +7,7 @@ import User from "../models";
 import jwt from "jsonwebtoken";
 import axios from "axios";
 import { useRouter } from "next/router";
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+// import clientPromise from "../lib/mongodb";
 
 const AuthContext = createContext({});
 
@@ -48,7 +47,7 @@ export const AuthProvider = ({ children }) => {
 
     return new Promise((resolve, reject) => {
       axios
-        .post(`${API_URL}/api/signin`, {
+        .post(`api/signin`, {
           email,
           password,
         })
@@ -73,7 +72,7 @@ export const AuthProvider = ({ children }) => {
     console.log(_id, deposit);
     return new Promise((resolve, reject) => {
       axios
-        .post(`${API_URL}/api/test`, { _id, deposit })
+        .post(`api/test`, { _id, deposit })
         .then((res) => {
           const data = res.data;
           console.log(`data : ${JSON.stringify(data)}`);
@@ -93,7 +92,7 @@ export const AuthProvider = ({ children }) => {
 
     return new Promise((resolve, reject) => {
       axios
-        .post(`${API_URL}/api/signup`, {
+        .post(`api/signup`, {
           email,
           password,
           name,
@@ -118,7 +117,7 @@ export const AuthProvider = ({ children }) => {
     }
     return new Promise((resolve, reject) => {
       axios
-        .post(`${API_URL}/api/deposit`, { id, deposit })
+        .post(`api/deposit`, { id, deposit })
         .then((res) => {
           resolve(res);
           alert(`sucess deposit`);

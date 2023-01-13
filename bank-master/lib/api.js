@@ -2,9 +2,9 @@
 import Axios from "axios";
 
 let urls = {
-  // test: `http://localhost:3000`,
-  // development: "http://localhost:3000/",
-  production: "https://react-bank-webapp-r9d0e0xax-czapata08.vercel.app/",
+  test: `http://localhost:3000`,
+  development: "http://localhost:3000/",
+  production: "https://react-bank-webapp-r9d0e0xax-czapata08.vercel.app",
 };
 const api = Axios.create({
   baseURL: urls[process.env.NODE_ENV],

@@ -1,4 +1,4 @@
-import dbConnect from "../../services/dbConnect";
+import dbConnect from "../../lib/dbConnect";
 import User from "../../models/user";
 import { UnorderedBulkOperation } from "mongodb";
 // import jwt from "jsonwebtoken";

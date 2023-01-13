@@ -1,4 +1,4 @@
-import dbConnect from "../../services/dbConnect";
+import dbConnect from "../../lib/dbConnect";
 import User from "../../models/user";
 import jwt from "jsonwebtoken";
 import { getCookie, setCookie } from "cookies-next";

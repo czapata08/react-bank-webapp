@@ -1,9 +1,5 @@
 import { useAuth } from "../context/user.context";
 import { useState, useEffect } from "react";
-import dbConnect from "../services/dbConnect";
-import getUser from "../lib/getUser";
-import Link from "next/link";
-import { Router } from "next/router";
 
 export default function Deposit() {
   const [deposit, setAmount] = useState("");

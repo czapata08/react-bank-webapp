@@ -2,7 +2,6 @@ import { Container, Row, Col, Nav, NavLink, NavItem } from "reactstrap";
 import Example from "../components/userAcc";
 import Rewards from "../components/rewards";
 import ContactOnDash from "../components/contact";
-import dbConnect from "../services/dbConnect";
 import { useAuth } from "../context/user.context";
 import getUser from "../lib/getUser";
 import { useState } from "react";
