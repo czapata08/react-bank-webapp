@@ -1,11 +1,12 @@
+import React, { useState, useContext } from "react";
+
 import { AuthProvider } from "../context/user.context";
-// import { AuthProvider } from "../context/auth";
 import Layout from "../components/layout";
 
+//styles
 import { config } from "@fortawesome/fontawesome-svg-core";
 import "../node_modules/@fortawesome/fontawesome-svg-core/styles.css";
 config.autoAddCss = false;
-// add bootstrap css
 import "bootstrap/dist/css/bootstrap.css";
 import "../styles/globals.css";
 

@@ -5,19 +5,21 @@ export default async (req, res) => {
     const client = await clientPromise;
     const db = client.db("test");
 
-    const queryValue = {
-      _id: new ObjectId(req.body._id),
-    };
-
-    const update = {
-      $set: { "accounts.balance": req.body.deposit },
-      $currentDate: { lastModified: true },
-    };
-
-    const data = await db.collection("users").updateOne(queryValue, update);
-    console.log(data);
-    console.log(`success data was submitted`);
+    const data = await db.collection("users").findOneAndUpdate(
+      {
+        _id: new ObjectId(req.body._id),
+      },
+      {
+        $set: { "accounts.balance": req.body.deposit },
+        $currentDate: { lastModified: true },
+      },
+      {
+        returnDocument: "after",
+        projection: { password: 0 },
+      }
+    );
     res.json(data);
+    console.log(`result= ${JSON.stringify(data)}`);
   } catch (e) {
     console.error(e);
   }

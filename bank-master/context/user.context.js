@@ -75,9 +75,10 @@ export const AuthProvider = ({ children }) => {
         .post(`api/test`, { _id, deposit })
         .then((res) => {
           const data = res.data;
-          console.log(`data : ${JSON.stringify(data)}`);
+          console.log(`deposit data from api ctx : ${JSON.stringify(data)}`);
+          setUser(res.data.value);
           resolve(res);
-          alert(`success`);
+          alert(`success from api`);
         })
         .catch((error) => {
           reject(console.log(error));

@@ -15,9 +15,6 @@ import {
   NavbarText,
 } from "reactstrap";
 import { useAuth } from "../context/user.context";
-// import { authenticatedUser } from "../pages/signin";
-// import { getUser } from "../lib/getUser";
-// import { dbConnect } from "../services/dbConnect";
 
 export default function Layout({ children }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -76,8 +73,7 @@ export default function Layout({ children }) {
                 </button>
               )}
             </NavItem>
-            {user ? <h5>{user.email}</h5> : <h1>Not Authenticated</h1>}
-            {/* {console.log(`user from layout ${JSON.stringify(user)}`)} */}
+            {user && <h5>{user.email}</h5>}
           </Collapse>
         </Navbar>
       </header>
