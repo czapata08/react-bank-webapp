@@ -19,7 +19,7 @@ import { authenticatedUser } from "../pages/signin";
 import { getUser } from "../lib/getUser";
 import { dbConnect } from "../services/dbConnect";
 
-function Layout(props) {
+function Layout({ children }) {
   const [isOpen, setIsOpen] = useState(false);
   // const [expand, setExpand] = useState(false);
   const toggle = () => setIsOpen(!isOpen);
@@ -81,7 +81,7 @@ function Layout(props) {
           </Collapse>
         </Navbar>
       </header>
-      <Container>{props.children}</Container>
+      <Container>{children}</Container>
     </div>
   );
 }

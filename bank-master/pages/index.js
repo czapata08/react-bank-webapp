@@ -9,11 +9,7 @@ export default function HomePage() {
   const router = useRouter();
   return (
     <>
-      <AuthProvider>
-        <Layout>
-          <Landing />
-        </Layout>
-      </AuthProvider>
+      <Landing />
     </>
   );
 }
