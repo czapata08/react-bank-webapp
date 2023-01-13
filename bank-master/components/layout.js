@@ -16,6 +16,8 @@ import {
 } from "reactstrap";
 import { useAuth } from "../context/user.context";
 import { authenticatedUser } from "../pages/signin";
+import { getUser } from "../lib/getUser";
+import { dbConnect } from "../services/dbConnect";
 
 function Layout(props) {
   const [isOpen, setIsOpen] = useState(false);
@@ -57,11 +59,7 @@ function Layout(props) {
               <NavItem>
                 <NavLink href='/support'>Support</NavLink>
               </NavItem>
-              {user && (
-                <NavItem>
-                  <Link href='/update'>Update</Link>
-                </NavItem>
-              )}
+
               {user && (
                 <NavItem>
                   <Link href='/userdash'>User DashBoard</Link>

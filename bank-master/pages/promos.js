@@ -1,5 +1,3 @@
-//create multiple promos stored in an aray
-
 function Promos() {
   return (
     <div className='jumbotron'>
@@ -19,3 +17,5 @@ function Promos() {
     </div>
   );
 }
+
+export default Promos;
