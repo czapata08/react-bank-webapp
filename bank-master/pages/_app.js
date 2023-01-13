@@ -8,8 +8,6 @@ config.autoAddCss = false;
 // add bootstrap css
 import "bootstrap/dist/css/bootstrap.css";
 import "../styles/globals.css";
-import { dbConnect } from "../services/dbConnect";
-import { getUser } from "../lib/getUser";
 
 function MyApp(props) {
   const { Component, pageProps } = props;
