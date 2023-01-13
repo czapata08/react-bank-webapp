@@ -7,7 +7,7 @@ import { useAuth } from "../context/user.context";
 
 // tell layout that we logged in
 
-function SigninPage(props) {
+export const SigninPage = () => {
   // const [data, updateData] = useState({ email: "", password: "" });
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
@@ -72,9 +72,8 @@ function SigninPage(props) {
       </form>
     </div>
   );
-}
+};
 
-export default SigninPage;
 // Only render this page if getUser function returns valid user
 // export async function getServerSideProps({ req, res }) {
 //   await dbConnect();

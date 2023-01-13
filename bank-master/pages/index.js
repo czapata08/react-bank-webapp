@@ -4,10 +4,10 @@ import { useRouter } from "next/router";
 import dbConnect from "../services/dbConnect";
 import Landing from "./landing";
 
-export default function Home() {
+export const Home = () => {
   return (
     <>
       <Landing />
     </>
   );
-}
+};

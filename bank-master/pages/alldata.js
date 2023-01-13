@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 
-export default function AllData() {
+export const AllData = () => {
   //    const { email } = React.useContext(UserContext);
   const [data, setData] = useState({});
   let [headings, setHeadings] = useState([]);
@@ -88,4 +88,4 @@ export default function AllData() {
       <Table />
     </div>
   );
-}
+};

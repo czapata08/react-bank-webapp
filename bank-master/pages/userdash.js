@@ -9,7 +9,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Deposit from "../components/deposit";
 
-export default function UserDash() {
+export const UserDash = () => {
   const { user } = useAuth();
   const [deposit, setDeposit] = useState(false);
   const auth = user;
@@ -63,7 +63,7 @@ export default function UserDash() {
       </Row>
     </Container>
   );
-}
+};
 
 // export async function getServerSideProps({ req, res }) {
 //   await dbConnect();

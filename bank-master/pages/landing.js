@@ -3,7 +3,7 @@ import Promos from "../components/promos";
 import Footer from "../components/footer";
 import SigninPage from "./signin";
 
-export default function Landing() {
+export const Landing = () => {
   return (
     <>
       <div
@@ -42,4 +42,4 @@ export default function Landing() {
       </div>
     </>
   );
-}
+};

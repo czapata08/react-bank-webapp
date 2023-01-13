@@ -5,7 +5,7 @@ import getUser from "../lib/getUser";
 import dbConnect from "../services/dbConnect";
 import { useAuth } from "../context/user.context";
 
-export default function SignupPage() {
+export const SignupPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -77,7 +77,7 @@ export default function SignupPage() {
       </form>
     </>
   );
-}
+};
 //Only render this page if getUser function returns valid user
 // export async function getServerSideProps({ req, res }) {
 //   await dbConnect();
