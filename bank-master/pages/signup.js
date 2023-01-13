@@ -2,7 +2,7 @@ import { useState } from "react";
 import axios from "axios";
 import { useRouter } from "next/router";
 import getUser from "../lib/getUser";
-import dbConnect from "../services/dbConnect";
+import dbConnect from "../public/services/dbConnect";
 import { useAuth } from "../context/user.context";
 
 const SignupPage = () => {

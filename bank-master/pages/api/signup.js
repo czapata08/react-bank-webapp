@@ -1,4 +1,4 @@
-import dbConnect from "../../services/dbConnect";
+import dbConnect from "../../public/services/dbConnect";
 import User from "../../models/user";
 import jwt from "jsonwebtoken";
 import cookie from "cookie";

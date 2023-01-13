@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import getUser from "../lib/getUser";
-import dbConnect from "../services/dbConnect";
+import dbConnect from "../public/services/dbConnect";
 import api from "../lib/api";
 import { getCookie, setCookie, removeCookies } from "cookies-next";
 import User from "../models";
@@ -8,7 +8,7 @@ import jwt from "jsonwebtoken";
 import axios from "axios";
 import { useRouter } from "next/router";
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 
 const AuthContext = createContext({});
 
