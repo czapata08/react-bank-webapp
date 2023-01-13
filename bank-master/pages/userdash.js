@@ -9,7 +9,7 @@ import { useState } from "react";
 import Link from "next/link";
 import Deposit from "../components/deposit";
 
-export const UserDash = () => {
+const UserDash = () => {
   const { user } = useAuth();
   const [deposit, setDeposit] = useState(false);
   const auth = user;
@@ -64,24 +64,4 @@ export const UserDash = () => {
     </Container>
   );
 };
-
-// export async function getServerSideProps({ req, res }) {
-//   await dbConnect();
-//   const user = await getUser(req, res);
-//   console.log(`user ssr ${JSON.stringify(user)}`);
-//   console.log(typeof user);
-//   if (!user) {
-//     return {
-//       redirect: {
-//         permanent: false,
-//         destination: "/",
-//       },
-//       props: {},
-//     };
-//   }
-//   return {
-//     props: {
-//       user,
-//     },
-//   };
-// }
+export default UserDash;

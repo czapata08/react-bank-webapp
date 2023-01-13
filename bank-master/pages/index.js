@@ -1,9 +1,9 @@
 import Services from "../components/services";
 import Promos from "../components/promos";
 import Footer from "../components/footer";
-import SigninPage from "./signin";
+import LoginForm from "../components/forms";
 
-export const Home = () => {
+const Home = () => {
   return (
     <>
       <div
@@ -26,7 +26,7 @@ export const Home = () => {
               <button type='button'>Button</button>
             </div>
             <div className='col-sm-4'>
-              <SigninPage />
+              <LoginForm />
             </div>
           </div>
         </div>
@@ -43,3 +43,5 @@ export const Home = () => {
     </>
   );
 };
+
+export default Home;

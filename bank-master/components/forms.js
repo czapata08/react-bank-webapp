@@ -1,25 +1,19 @@
 import { useState } from "react";
-import axios from "axios";
-import { useRouter } from "next/router";
-import getUser from "../lib/getUser";
-import dbConnect from "../services/dbConnect";
 import { useAuth } from "../context/user.context";
 
-const SignupPage = () => {
-  const [name, setName] = useState("");
+const LoginForm = () => {
+  const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [loading, setLoading] = useState(false);
-  const { signupHandler } = useAuth();
-  const router = useRouter();
+  const { signinHandler } = useAuth();
 
   const submit = async (e) => {
     e.preventDefault(e);
     setLoading(true);
-    signupHandler(email, password)
+    signinHandler(email, password)
       .then((res) => {
         setLoading(false);
-        console.log(`user from signup ${JSON.stringify(res.data)}`);
+        console.log(`user from signing page ${JSON.stringify(res.data)}`);
         alert("sucess");
       })
       .catch((error) => {
@@ -27,20 +21,13 @@ const SignupPage = () => {
         alert(error);
       });
   };
-
   return (
-    <>
-      <h1>SignUp</h1>
+    <div>
+      <h1>SignIn</h1>
 
       <p>Only unauthenticated users can access this page.</p>
 
       <form onSubmit={submit}>
-        <input
-          type='text'
-          placeholder='Name'
-          onChange={(e) => setName(e.target.value)}
-          value={name}
-        />
         <input
           type='email'
           placeholder='Email'
@@ -53,10 +40,10 @@ const SignupPage = () => {
           onChange={(e) => setPassword(e.target.value)}
           value={password}
         />
-        <button>SignUp</button>
+        <button>{loading ? "Loading... " : "Submit"}</button>
       </form>
-    </>
+    </div>
   );
 };
 
-export default SignupPage;
+export default LoginForm;
