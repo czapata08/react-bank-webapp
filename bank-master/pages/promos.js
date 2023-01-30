@@ -19,3 +19,5 @@ function Promos() {
     </div>
   );
 }
+
+export default Promos;
