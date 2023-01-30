@@ -5,7 +5,7 @@ import getUser from "../lib/getUser";
 import dbConnect from "../public/services/dbConnect";
 import { useAuth } from "../context/user.context";
 
-const SignupPage = () => {
+const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -59,4 +59,4 @@ const SignupPage = () => {
   );
 };
 
-export default SignupPage;
+export default RegisterPage;

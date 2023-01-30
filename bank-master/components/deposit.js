@@ -5,12 +5,13 @@ import { set } from "mongoose";
 export default function Deposit() {
   const [deposit, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
-  var { user, test } = useAuth(); //deleted depositHandler
+  var { user, depositHandler } = useAuth(); //deleted depositHandler
+  console.log(user.accounts.balance);
 
   const submit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    test(user._id, deposit)
+    depositHandler(user._id, deposit, user.accounts.balance)
       .then((res) => {
         setLoading(false);
         // console.log(`deposit response ${JSON.stringify(res.data.value)}`);

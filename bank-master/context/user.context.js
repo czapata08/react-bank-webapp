@@ -1,13 +1,9 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import getUser from "../lib/getUser";
-import dbConnect from "../public/services/dbConnect";
-import api from "../lib/api";
 import { getCookie, setCookie, removeCookies } from "cookies-next";
 import User from "../models";
 import jwt from "jsonwebtoken";
 import axios from "axios";
 import { useRouter } from "next/router";
-// import clientPromise from "../lib/mongodb";
 
 const AuthContext = createContext({});
 
@@ -23,6 +19,7 @@ export const AuthProvider = ({ children }) => {
         console.log(
           `found token, lets see if it is is: ${JSON.stringify(token)}`
         );
+      if (!token) router.push("/");
       try {
         const data = jwt.verify(token, process.env.TOKEN_SECRET);
         console.log(`data from getUser: ${JSON.stringify(data)}`);
@@ -34,6 +31,7 @@ export const AuthProvider = ({ children }) => {
         return user;
       } catch (error) {
         console.log(error);
+        router.push("/");
         return null;
       }
     }
@@ -65,14 +63,14 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const test = (_id, deposit) => {
+  const depositHandler = (_id, deposit, balance) => {
     if (typeof window === "undefined") {
       return;
     }
-    console.log(_id, deposit);
+    console.log(_id, deposit, balance);
     return new Promise((resolve, reject) => {
       axios
-        .post(`api/test`, { _id, deposit })
+        .post(`api/deposit`, { _id, deposit, balance })
         .then((res) => {
           const data = res.data;
           console.log(`deposit data from api ctx : ${JSON.stringify(data)}`);
@@ -112,23 +110,23 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const depositHandler = (id, deposit) => {
-    if (typeof window === "undefined") {
-      return;
-    }
-    return new Promise((resolve, reject) => {
-      axios
-        .post(`api/deposit`, { id, deposit })
-        .then((res) => {
-          resolve(res);
-          alert(`sucess deposit`);
-          router.push("/userdash");
-        })
-        .catch((error) => {
-          reject(error);
-        });
-    });
-  };
+  // const depositHandler = (id, deposit, balance) => {
+  //   if (typeof window === "undefined") {
+  //     return;
+  //   }
+  //   return new Promise((resolve, reject) => {
+  //     axios
+  //       .post(`api/deposit`, { id, deposit, balance })
+  //       .then((res) => {
+  //         resolve(res);
+  //         alert(`sucess deposit`);
+  //         router.push("/userdash");
+  //       })
+  //       .catch((error) => {
+  //         reject(error);
+  //       });
+  //   });
+  // };
 
   const signoutHandler = () => {
     removeCookies("token");
@@ -145,7 +143,6 @@ export const AuthProvider = ({ children }) => {
         signupHandler,
         signoutHandler,
         depositHandler,
-        test,
       }}>
       {children}
     </AuthContext.Provider>

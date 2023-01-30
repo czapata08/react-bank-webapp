@@ -1,41 +1,26 @@
-import dbConnect from "../../lib/dbConnect";
-import User from "../../models/user";
-import { UnorderedBulkOperation } from "mongodb";
-// import jwt from "jsonwebtoken";
-// import { getCookie, setCookie } from "cookies-next";
-// import { verifyPassword } from "../../lib/auth";
+import clientPromise from "../../lib/mongodb";
+import { ObjectId } from "mongodb";
+export default async (req, res) => {
+  try {
+    const client = await clientPromise;
+    const db = client.db("test");
 
-export default async function handler(req, res) {
-  await dbConnect();
-  const { _id, deposit } = req.body;
-
-  //find reciever acc number and get balance and update to new balance
-  if (req.method === "POST") {
-    console.log(
-      `id: ${_id} --- depositAmount${deposit} --- typeofDeposit: ${typeof deposit}`
-    );
-    User.updateOne(
+    const data = await db.collection("users").findOneAndUpdate(
       {
-        id: _id,
+        _id: new ObjectId(req.body._id),
       },
-
       {
-        $set: { balance: Number(deposit) },
+        $set: { "accounts.balance": req.body.deposit + req.body.balance },
+        $currentDate: { lastModified: true },
       },
-
       {
         returnDocument: "after",
         projection: { password: 0 },
-      },
-      function (err, docs) {
-        if (err) {
-          res(err);
-          console.log(err);
-        } else {
-          res(docs);
-          console.log("Updated Docs : ", docs);
-        }
       }
     );
+    res.json(data);
+    console.log(`result= ${JSON.stringify(data)}`);
+  } catch (e) {
+    console.error(e);
   }
-}
+};

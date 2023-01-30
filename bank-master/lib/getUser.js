@@ -1,10 +1,13 @@
 import { getCookie } from "cookies-next";
 import jwt from "jsonwebtoken";
-import User from "../models/user";
+import User from "../models";
 
-export default async function getUser(req, res) {
-  const token = getCookie("token", { req, res });
-
+export default async function getUser({ req, res }) {
+  const token = getCookie({ req, res });
+  if (!token) {
+    console.log(`token not found`);
+  }
+  console.log(`token = ${token}`);
   try {
     const data = jwt.verify(token, process.env.TOKEN_SECRET);
     console.log(`data from getUser: ${JSON.stringify(data)}`);

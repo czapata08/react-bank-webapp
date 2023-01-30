@@ -1,10 +1,9 @@
 import Services from "../components/services";
 import Promos from "../components/promos";
 import Footer from "../components/footer";
-import LoginForm from "../components/forms";
-import Link from "next/link";
+import SigninPage from "./signin";
 
-const Home = () => {
+export default function Landing() {
   return (
     <>
       <div
@@ -24,12 +23,10 @@ const Home = () => {
           <div className='row justify-content-between'>
             <div className='col-sm-6'>
               <h1 className='display-4'>Welcome To Your Future</h1>
-              <Link href='/register'>
-                <button>Register</button>
-              </Link>
+              <button type='button'>Button</button>
             </div>
             <div className='col-sm-4'>
-              <LoginForm />
+              <SigninPage />
             </div>
           </div>
         </div>
@@ -45,6 +42,4 @@ const Home = () => {
       </div>
     </>
   );
-};
-
-export default Home;
+}

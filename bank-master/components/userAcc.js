@@ -14,9 +14,9 @@ import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../context/user.context";
 import { Router, useRouter } from "next/router";
 
-function Example() {
+function UserAcc() {
   const { user } = useAuth();
-  console.log(user)
+  console.log(user);
   const [open, setOpen] = useState("1");
   const [account, updateAccount] = useState("");
   const toggle = (id) => {
@@ -103,4 +103,4 @@ function Example() {
   );
 }
 
-export default Example;
+export default UserAcc;

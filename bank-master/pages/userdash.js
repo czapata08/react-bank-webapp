@@ -1,14 +1,15 @@
 import { Container, Row, Col, Nav, NavLink, NavItem } from "reactstrap";
-import Example from "../components/userAcc";
+import UserAcc from "../components/userAcc";
 import Rewards from "../components/rewards";
 import ContactOnDash from "../components/contact";
 import { useAuth } from "../context/user.context";
-import getUser from "../lib/getUser";
 import { useState } from "react";
-import Link from "next/link";
 import Deposit from "../components/deposit";
+import { getCookie } from "cookies-next";
+import { Router } from "next/router";
 
-const UserDash = () => {
+const UserDash = (props) => {
+  const access = props;
   const { user } = useAuth();
   const [deposit, setDeposit] = useState(false);
   const auth = user;
@@ -49,7 +50,7 @@ const UserDash = () => {
           className='bg-light border'
           xs='6'
           md='8'>
-          {deposit == true ? <Deposit /> : <Example auth={{ auth }} />}{" "}
+          {deposit == true ? <Deposit /> : <UserAcc auth={{ auth }} />}
         </Col>
 
         <Col
@@ -64,3 +65,21 @@ const UserDash = () => {
   );
 };
 export default UserDash;
+
+// export async function getServerSideProps() {
+//   const token = getCookie();
+//   if (!token) {
+//     return {
+//       redirect: {
+//         destination: "/",
+//         permanent: false,
+//       },
+//     };
+//   }
+
+//   const access = true;
+
+//   return {
+//     props: { access },
+//   };
+// }

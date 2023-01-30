@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-import { removeCookies } from "cookies-next";
 import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -13,6 +12,7 @@ import {
   NavItem,
   NavLink,
   NavbarText,
+  Button,
 } from "reactstrap";
 import { useAuth } from "../context/user.context";
 
@@ -37,46 +37,63 @@ export default function Layout({ children }) {
           content='initial-scale=1.0, width=device-width'
         />
       </Head>
-      <header>
-        <Navbar className='navbar-expand-lg'>
-          <NavbarBrand href='/'>Knights Bank</NavbarBrand>
-          <NavbarToggler onClick={toggle} />
-          <Collapse
-            isOpen={isOpen}
-            navbar>
-            <Nav
-              className='me-auto'
-              navbar>
-              <NavItem>
-                <NavLink href='/signin'>Signin</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href='/signup'>Create</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href='/support'>Support</NavLink>
-              </NavItem>
 
-              {user && (
+      <Navbar className='navbar navbar-light navbar-expand-md'>
+        <NavbarToggler onClick={toggle} />
+        <NavbarBrand href='/'>Knights Bank</NavbarBrand>
+        <Collapse
+          isOpen={isOpen}
+          navbar>
+          <Nav
+            className='me-auto'
+            navbar>
+            {!user ? (
+              <>
                 <NavItem>
-                  <Link href='/userdash'>User DashBoard</Link>
+                  <NavLink href='/signin'>Signin</NavLink>
                 </NavItem>
-              )}
-            </Nav>
-            <NavItem>
-              {user && (
-                <button
+                <NavItem>
+                  <NavLink href='/register'>Register</NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink href='/support'>Support</NavLink>
+                </NavItem>
+              </>
+            ) : (
+              <>
+                <NavItem>
+                  <NavLink>
+                    <Link href='/userdash'>Account Dashboard</Link>
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink>
+                    <Link href='profile'>Profile</Link>
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink>
+                    <Link href='/support'>Support</Link>
+                  </NavLink>
+                </NavItem>
+              </>
+            )}
+          </Nav>
+          {user && (
+            <>
+              <NavItem>
+                <Button
                   onClick={() => {
                     signoutHandler();
                   }}>
                   Logout
-                </button>
-              )}
-            </NavItem>
-            {user && <h5>{user.email}</h5>}
-          </Collapse>
-        </Navbar>
-      </header>
+                </Button>
+              </NavItem>
+              <NavbarText>{user.email}</NavbarText>
+            </>
+          )}
+        </Collapse>
+      </Navbar>
       <Container>{children}</Container>
     </div>
   );
