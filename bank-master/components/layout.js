@@ -55,9 +55,6 @@ export default function Layout({ children }) {
                 <NavItem>
                   <NavLink href='/register'>Register</NavLink>
                 </NavItem>
-                <NavItem>
-                  <NavLink href='/support'>Support</NavLink>
-                </NavItem>
               </>
             ) : (
               <>
