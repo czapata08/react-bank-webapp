@@ -10,7 +10,7 @@ export default async (req, res) => {
         _id: new ObjectId(req.body._id),
       },
       {
-        $inc: { "accounts.balance": +req.body.deposit },
+        $inc: { "accounts.balance": -req.body.withdraw },
         $currentDate: { lastModified: true },
       },
       {

@@ -1,5 +1,5 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { getCookie, setCookie, removeCookies } from "cookies-next";
+import { getCookie, removeCookies } from "cookies-next";
 import User from "../models";
 import jwt from "jsonwebtoken";
 import axios from "axios";
@@ -15,11 +15,10 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     async function loadUserFromCookies() {
       const token = getCookie();
-      if (token)
-        console.log(
-          `found token, lets see if it is is: ${JSON.stringify(token)}`
-        );
-      if (!token) router.push("/");
+      console.log(token);
+      console.log(
+        `found token, lets see if it is is: ${JSON.stringify(getCookie())}`
+      );
       try {
         const data = jwt.verify(token, process.env.TOKEN_SECRET);
         console.log(`data from getUser: ${JSON.stringify(data)}`);
@@ -31,7 +30,6 @@ export const AuthProvider = ({ children }) => {
         return user;
       } catch (error) {
         console.log(error);
-        router.push("/");
         return null;
       }
     }
@@ -76,6 +74,27 @@ export const AuthProvider = ({ children }) => {
           console.log(`deposit data from api ctx : ${JSON.stringify(data)}`);
           setUser(res.data.value);
           resolve(res);
+          alert(`Deposit sucessful`);
+        })
+        .catch((error) => {
+          reject(console.log(error));
+        });
+    });
+  };
+
+  const withdrawHandler = (_id, withdraw) => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    console.log(_id, withdraw);
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`api/withdraw`, { _id, withdraw })
+        .then((res) => {
+          const data = res.data;
+          console.log(`withdraw : ${JSON.stringify(data)}`);
+          setUser(res.data.value);
+          resolve(res);
           alert(`success from api`);
         })
         .catch((error) => {
@@ -110,23 +129,24 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  // const depositHandler = (id, deposit, balance) => {
-  //   if (typeof window === "undefined") {
-  //     return;
-  //   }
-  //   return new Promise((resolve, reject) => {
-  //     axios
-  //       .post(`api/deposit`, { id, deposit, balance })
-  //       .then((res) => {
-  //         resolve(res);
-  //         alert(`sucess deposit`);
-  //         router.push("/userdash");
-  //       })
-  //       .catch((error) => {
-  //         reject(error);
-  //       });
-  //   });
-  // };
+  const transferHandler = (senderId, recieverId, transferAmount) => {
+    if (typeof window === "undefined") {
+      return;
+    }
+    return new Promise((resolve, reject) => {
+      axios
+        .post(`api/transfer`, { senderId, recieverId, transferAmount })
+        .then((res) => {
+          resolve(res);
+          setUser(res.data.value);
+          alert(`Transfer succesfull`);
+          router.push("/userdash");
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
 
   const signoutHandler = () => {
     removeCookies("token");
@@ -143,6 +163,8 @@ export const AuthProvider = ({ children }) => {
         signupHandler,
         signoutHandler,
         depositHandler,
+        transferHandler,
+        withdrawHandler,
       }}>
       {children}
     </AuthContext.Provider>

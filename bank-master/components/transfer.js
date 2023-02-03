@@ -3,43 +3,34 @@ import { useState, useEffect } from "react";
 import { set } from "mongoose";
 
 export default function Deposit() {
-  const [deposit, setAmount] = useState("");
+  const [transferAmount, setTransfer] = useState("");
+  const [status, setStatus] = useState("");
   const [loading, setLoading] = useState(false);
-  var { user, depositHandler } = useAuth(); //deleted depositHandler
+  const [recieverId, setRecieverID] = useState("");
+  var { user, transferHandler } = useAuth(); //deleted depositHandler
   console.log(user.accounts.balance);
+
+  const senderId = user._id;
+  console.log("sender id " + senderId);
+
+  if (transferAmount > user.accounts.balance)
+    return alert("amount cannot be greater than balance");
 
   const submit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    depositHandler(user._id, deposit, user.accounts.balance)
+    transferHandler(senderId, recieverId, transferAmount)
       .then((res) => {
         setLoading(false);
-        // console.log(`deposit response ${JSON.stringify(res.data.value)}`);
-        alert("sucess");
       })
       .catch((error) => {
         setLoading(false);
         alert(error);
       });
-    setAmount("");
+    setTransfer("");
   };
 
   return (
-    // <Card
-    //   className='card'
-    //   bgcolor='secondary'
-    //   header='Deposit Form'
-    //   status={status}
-    //   body={
-    //     <>
-    //       <Card
-    //         bgcolor='warning'
-    //         body=<h4>`Balance ${user.accounts.balance}`</h4>
-    //       />
-    //       <Card
-    //         bgcolor='dark'
-    //         header='Deposit'
-    //         body={`
     <>
       {user && (
         <>
@@ -52,10 +43,14 @@ export default function Deposit() {
               <form onSubmit={submit}>
                 <input
                   type='number'
-                  placeholder='$ Deposit Amount'
-                  onChange={(e) => setAmount(Number(e.target.value))}
-                  value={deposit}
+                  placeholder='$ transfer amount'
+                  onChange={(e) => setTransfer(Number(e.target.value))}
+                  value={transferAmount}
                 />
+                <input
+                  placeholder='Reciever Acc ID'
+                  onChange={(e) => setRecieverID(e.target.value)}
+                  value={recieverId}></input>
                 <button>{loading ? "Loading... " : "Submit"}</button>
                 <br />
               </form>
@@ -64,10 +59,5 @@ export default function Deposit() {
         </>
       )}
     </>
-    //         }
-    //       />
-    //     </>
-    //   }
-    // />
   );
 }

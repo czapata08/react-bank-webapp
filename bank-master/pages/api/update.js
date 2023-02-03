@@ -56,25 +56,30 @@
 // import { verifyPassword } from "../../lib/auth";
 
 import clientPromise from "../../lib/mongodb";
-import { ObjectId } from 'mongodb';
+import { ObjectId } from "mongodb";
 
 export default async (req, res) => {
   try {
     const client = await clientPromise;
     const db = client.db("test");
-    const {username, email} = req.body.updater;
-
+    const { username, email } = req.body.updater;
 
     const queryValue = {
       _id: new ObjectId(req.body._id),
     };
 
     const update = {
-     ...(username && {username}),
-     ...(email && {email}),
+      ...(username && { username }),
+      ...(email && { email }),
     };
 
-    const result = await db.collection("users").findOneAndUpdate(queryValue, {$set: update}, {returnDocument: 'after', projection: { password: 0 }});
+    const result = await db
+      .collection("users")
+      .findOneAndUpdate(
+        queryValue,
+        { $set: update },
+        { returnDocument: "after", projection: { password: 0 } }
+      );
     console.log(JSON.stringify(result));
     res.json(result);
   } catch (e) {

@@ -3,43 +3,26 @@ import { useState, useEffect } from "react";
 import { set } from "mongoose";
 
 export default function Deposit() {
-  const [deposit, setAmount] = useState("");
+  const [withdraw, setWithdraw] = useState("");
   const [loading, setLoading] = useState(false);
-  var { user, depositHandler } = useAuth(); //deleted depositHandler
+  var { user, withdrawHandler } = useAuth(); //deleted depositHandler
   console.log(user.accounts.balance);
 
   const submit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    depositHandler(user._id, deposit, user.accounts.balance)
+    withdrawHandler(user._id, withdraw)
       .then((res) => {
         setLoading(false);
-        // console.log(`deposit response ${JSON.stringify(res.data.value)}`);
-        alert("sucess");
       })
       .catch((error) => {
         setLoading(false);
         alert(error);
       });
-    setAmount("");
+    setWithdraw("");
   };
 
   return (
-    // <Card
-    //   className='card'
-    //   bgcolor='secondary'
-    //   header='Deposit Form'
-    //   status={status}
-    //   body={
-    //     <>
-    //       <Card
-    //         bgcolor='warning'
-    //         body=<h4>`Balance ${user.accounts.balance}`</h4>
-    //       />
-    //       <Card
-    //         bgcolor='dark'
-    //         header='Deposit'
-    //         body={`
     <>
       {user && (
         <>
@@ -52,9 +35,9 @@ export default function Deposit() {
               <form onSubmit={submit}>
                 <input
                   type='number'
-                  placeholder='$ Deposit Amount'
-                  onChange={(e) => setAmount(Number(e.target.value))}
-                  value={deposit}
+                  placeholder='$ Withdraw Amount'
+                  onChange={(e) => setWithdraw(Number(e.target.value))}
+                  value={withdraw}
                 />
                 <button>{loading ? "Loading... " : "Submit"}</button>
                 <br />
@@ -64,10 +47,5 @@ export default function Deposit() {
         </>
       )}
     </>
-    //         }
-    //       />
-    //     </>
-    //   }
-    // />
   );
 }

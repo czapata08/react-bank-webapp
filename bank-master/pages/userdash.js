@@ -5,38 +5,64 @@ import ContactOnDash from "../components/contact";
 import { useAuth } from "../context/user.context";
 import { useState } from "react";
 import Deposit from "../components/deposit";
+import Transfer from "../components/transfer";
+import Withdraw from "../components/withdraw";
 import { getCookie } from "cookies-next";
-import { Router } from "next/router";
+import { useRouter } from "next/router";
 
-const UserDash = (props) => {
-  const access = props;
+const UserDash = () => {
   const { user } = useAuth();
-  const [deposit, setDeposit] = useState(false);
+  const router = useRouter();
   const auth = user;
+  const [transactionType, setType] = useState("");
+
+  const NavStatus = () => {
+    switch (transactionType) {
+      case "transfer":
+        return <Transfer />;
+      case "deposit":
+        return <Deposit />;
+      case "withdraw":
+        return <Withdraw />;
+      default:
+        return <UserAcc auth={{ auth }} />;
+    }
+  };
+
   function UserDashNav() {
     return (
       <Nav tabs>
         <NavItem>
           <NavLink
             onClick={() => {
-              setDeposit(false);
+              setType();
             }}>
             Accounts
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href='#'>Transfers</NavLink>
+          <NavLink
+            onClick={() => {
+              setType("transfer");
+            }}>
+            Transfer
+          </NavLink>
         </NavItem>
         <NavItem>
           <NavLink
             onClick={() => {
-              setDeposit(true);
+              setType("deposit");
             }}>
             Deposit
           </NavLink>
         </NavItem>
         <NavItem>
-          <NavLink href='#'>Help & LiveChat</NavLink>
+          <NavLink
+            onClick={() => {
+              setType("withdraw");
+            }}>
+            Withdraw
+          </NavLink>
         </NavItem>
       </Nav>
     );
@@ -50,7 +76,7 @@ const UserDash = (props) => {
           className='bg-light border'
           xs='6'
           md='8'>
-          {deposit == true ? <Deposit /> : <UserAcc auth={{ auth }} />}
+          <NavStatus />
         </Col>
 
         <Col

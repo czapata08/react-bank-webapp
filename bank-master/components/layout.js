@@ -68,7 +68,7 @@ export default function Layout({ children }) {
                 </NavItem>
                 <NavItem>
                   <NavLink>
-                    <Link href='profile'>Profile</Link>
+                    <Link href='/profile'>Profile</Link>
                   </NavLink>
                 </NavItem>
                 <NavItem>

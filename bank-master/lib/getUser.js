@@ -1,6 +1,6 @@
 import { getCookie } from "cookies-next";
 import jwt from "jsonwebtoken";
-import User from "../models";
+import User from "../models/user";
 
 export default async function getUser({ req, res }) {
   const token = getCookie({ req, res });
