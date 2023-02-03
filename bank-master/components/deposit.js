@@ -57,7 +57,7 @@ export default function Deposit(props) {
               <Form onSubmit={submit}>
                 <Input
                   type='number'
-                  placeholder='$ Withdraw Amount'
+                  placeholder='$ Deposit Amount'
                   onChange={(e) => setDeposit(Number(e.target.value))}
                   value={deposit}
                 />
