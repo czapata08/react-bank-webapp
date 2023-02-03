@@ -62,14 +62,15 @@ export default async (req, res) => {
   try {
     const client = await clientPromise;
     const db = client.db("test");
-    const { username, email } = req.body.updater;
+    const { password, email } = req.body.updater;
 
     const queryValue = {
-      _id: new ObjectId(req.body._id),
+      _id: new ObjectId(req.body.id),
     };
-
+    console.log(req.body.id);
+    //hash passsword if user wants to change it
     const update = {
-      ...(username && { username }),
+      ...(password && { password }),
       ...(email && { email }),
     };
 
@@ -81,8 +82,10 @@ export default async (req, res) => {
         { returnDocument: "after", projection: { password: 0 } }
       );
     console.log(JSON.stringify(result));
-    res.json(result);
+
+    res.status(200).json(result);
   } catch (e) {
     console.error(e);
+    res.status(424).json({ message: `${e}` });
   }
 };

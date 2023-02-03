@@ -14,9 +14,9 @@ import { faCreditCard } from "@fortawesome/free-solid-svg-icons";
 import { useAuth } from "../context/user.context";
 import { Router, useRouter } from "next/router";
 
-function UserAcc() {
-  const { user } = useAuth();
-  console.log(user);
+function UserAcc(props) {
+  const user = props.user.user;
+  console.log(props.user.user);
   const [open, setOpen] = useState("1");
   const [account, updateAccount] = useState("");
   const toggle = (id) => {
@@ -104,3 +104,22 @@ function UserAcc() {
 }
 
 export default UserAcc;
+
+export async function getServerSideProps({ req, res }) {
+  await dbConnect();
+
+  const user = await getUser(req, res);
+  console.log(`user from update: ${JSON.stringify(user)}`);
+  if (!user) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+      props: {},
+    };
+  }
+  return {
+    props: { user },
+  };
+}

@@ -1,12 +1,16 @@
 import getUser from "../lib/getUser";
 import dbConnect from "../lib/dbConnect";
+import { getCookie } from "cookies-next";
 
 const Profile = (props) => {
   console.log(props);
 
+  const { user } = props;
+
   return (
     <div>
-      <h1>{props.email}</h1>
+      <h1>{user.email}</h1>
+      <h1>{user.accounts.name}</h1>
     </div>
   );
 };

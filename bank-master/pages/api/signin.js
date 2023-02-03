@@ -26,11 +26,13 @@ export default async function handler(req, res) {
       expiresIn: "1d",
     });
 
+    console.log(`user created with ${token}`);
+
     setCookie("token", token, {
       req,
       res,
       maxAge: 60 * 60 * 24, // 1 day
-      path: "/userdash",
+      path: "/",
     });
 
     res.status(200).json(user);

@@ -1,12 +1,15 @@
 import { useAuth } from "../context/user.context";
 import { useState, useEffect } from "react";
 import { set } from "mongoose";
+import { useRouter } from "next/router";
 
 export default function Deposit() {
   const [withdraw, setWithdraw] = useState("");
   const [loading, setLoading] = useState(false);
   var { user, withdrawHandler } = useAuth(); //deleted depositHandler
   console.log(user.accounts.balance);
+
+  const router = useRouter();
 
   const submit = async (e) => {
     e.preventDefault();
@@ -19,6 +22,7 @@ export default function Deposit() {
         setLoading(false);
         alert(error);
       });
+
     setWithdraw("");
   };
 

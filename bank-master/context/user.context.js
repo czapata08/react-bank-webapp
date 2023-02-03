@@ -11,30 +11,32 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const router = useRouter();
-
-  useEffect(() => {
-    async function loadUserFromCookies() {
-      const token = getCookie();
-      console.log(token);
-      console.log(
-        `found token, lets see if it is is: ${JSON.stringify(getCookie())}`
-      );
-      try {
-        const data = jwt.verify(token, process.env.TOKEN_SECRET);
-        console.log(`data from getUser: ${JSON.stringify(data)}`);
-        let user = await User.findById(data.userId);
-        user = JSON.parse(JSON.stringify(user));
-        console.log("valid");
-        if (user) setUser(user);
-        console.log(`user from new useEffect ${JSON.stringify(user)}`);
-        return user;
-      } catch (error) {
-        console.log(error);
-        return null;
-      }
-    }
-    loadUserFromCookies();
-  }, []);
+  const refreshData = () => {
+    router.replace(router.asPath);
+  };
+  // useEffect(() => {
+  //   async function loadUserFromCookies() {
+  //     const token = getCookie();
+  //     console.log(token);
+  //     console.log(
+  //       `found token, lets see if it is is: ${JSON.stringify(getCookie())}`
+  //     );
+  //     try {
+  //       const data = jwt.verify(token, process.env.TOKEN_SECRET);
+  //       console.log(`data from getUser: ${JSON.stringify(data)}`);
+  //       let user = await User.findById(data.userId);
+  //       user = JSON.parse(JSON.stringify(user));
+  //       console.log("valid");
+  //       if (user) setUser(user);
+  //       console.log(`user from new useEffect ${JSON.stringify(user)}`);
+  //       return user;
+  //     } catch (error) {
+  //       console.log(error);
+  //       return null;
+  //     }
+  //   }
+  //   loadUserFromCookies();
+  // }, []);
 
   const signinHandler = (email, password) => {
     if (typeof window === "undefined") {
@@ -75,6 +77,9 @@ export const AuthProvider = ({ children }) => {
           setUser(res.data.value);
           resolve(res);
           alert(`Deposit sucessful`);
+          if (res.status < 300) {
+            refreshData();
+          }
         })
         .catch((error) => {
           reject(console.log(error));
@@ -96,6 +101,9 @@ export const AuthProvider = ({ children }) => {
           setUser(res.data.value);
           resolve(res);
           alert(`success from api`);
+          if (res.status < 300) {
+            refreshData();
+          }
         })
         .catch((error) => {
           reject(console.log(error));
@@ -141,6 +149,9 @@ export const AuthProvider = ({ children }) => {
           setUser(res.data.value);
           alert(`Transfer succesfull`);
           router.push("/userdash");
+          if (res.status < 300) {
+            refreshData();
+          }
         })
         .catch((error) => {
           reject(error);

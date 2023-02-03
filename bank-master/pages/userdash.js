@@ -7,25 +7,29 @@ import { useState } from "react";
 import Deposit from "../components/deposit";
 import Transfer from "../components/transfer";
 import Withdraw from "../components/withdraw";
-import { getCookie } from "cookies-next";
 import { useRouter } from "next/router";
+import dbConnect from "../services/dbConnect";
+import getUser from "../lib/getUser";
 
-const UserDash = () => {
-  const { user } = useAuth();
+const UserDash = (props) => {
+  const { user } = props;
   const router = useRouter();
-  const auth = user;
+  const refreshData = () => {
+    router.replace(router.asPath);
+  };
+
   const [transactionType, setType] = useState("");
 
-  const NavStatus = () => {
+  const NavStatus = (props) => {
     switch (transactionType) {
       case "transfer":
-        return <Transfer />;
+        return <Transfer user={{ user }} />;
       case "deposit":
-        return <Deposit />;
+        return <Deposit user={{ user }} />;
       case "withdraw":
-        return <Withdraw />;
+        return <Withdraw user={{ user }} />;
       default:
-        return <UserAcc auth={{ auth }} />;
+        return <UserAcc user={{ user }} />;
     }
   };
 
@@ -92,20 +96,21 @@ const UserDash = () => {
 };
 export default UserDash;
 
-// export async function getServerSideProps() {
-//   const token = getCookie();
-//   if (!token) {
-//     return {
-//       redirect: {
-//         destination: "/",
-//         permanent: false,
-//       },
-//     };
-//   }
+export async function getServerSideProps({ req, res }) {
+  await dbConnect();
 
-//   const access = true;
-
-//   return {
-//     props: { access },
-//   };
-// }
+  const user = await getUser(req, res);
+  console.log(`user from userdash: ${JSON.stringify(user)}`);
+  if (!user) {
+    return {
+      redirect: {
+        permanent: false,
+        destination: "/",
+      },
+      props: {},
+    };
+  }
+  return {
+    props: { user },
+  };
+}

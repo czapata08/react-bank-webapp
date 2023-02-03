@@ -2,10 +2,12 @@ import { useAuth } from "../context/user.context";
 import { useState, useEffect } from "react";
 import { set } from "mongoose";
 
-export default function Deposit() {
+export default function Deposit(props) {
   const [deposit, setAmount] = useState("");
   const [loading, setLoading] = useState(false);
-  var { user, depositHandler } = useAuth(); //deleted depositHandler
+  const user = props.user.user;
+  console.log(props.user.user);
+  const { depositHandler } = useAuth(); //deleted depositHandler
   console.log(user.accounts.balance);
 
   const submit = async (e) => {

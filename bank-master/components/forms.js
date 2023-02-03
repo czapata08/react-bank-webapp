@@ -1,10 +1,13 @@
 import { useState } from "react";
 import { useAuth } from "../context/user.context";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const LoginForm = () => {
   const [loading, setLoading] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const router = useRouter();
   const { signinHandler } = useAuth();
 
   const submit = async (e) => {
@@ -21,6 +24,21 @@ const LoginForm = () => {
         alert(error);
       });
   };
+
+  // const signinHandler = async (e) => {
+  //   e.preventDefault();
+  //   try {
+  //     const res = await axios.post(`api/signin`, {
+  //       email,
+  //       password,
+  //     });
+  //     router.push("/userdash");
+  //     console.log(`${JSON.stringify(res)}`);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
+
   return (
     <div>
       <h1>SignIn</h1>
