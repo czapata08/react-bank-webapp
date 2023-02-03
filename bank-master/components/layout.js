@@ -76,6 +76,16 @@ export default function Layout({ children }) {
                     <Link href='/support'>Support</Link>
                   </NavLink>
                 </NavItem>
+                <NavItem>
+                  <NavLink>
+                    <Link href='/update'>Update</Link>
+                  </NavLink>
+                </NavItem>
+                <NavItem>
+                  <NavLink>
+                    <Link href='/alldata'>AllData</Link>
+                  </NavLink>
+                </NavItem>
               </>
             )}
           </Nav>

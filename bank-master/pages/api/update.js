@@ -57,12 +57,15 @@
 
 import clientPromise from "../../lib/mongodb";
 import { ObjectId } from "mongodb";
+import bcrypt from "bcryptjs";
 
 export default async (req, res) => {
   try {
     const client = await clientPromise;
     const db = client.db("test");
-    const { password, email } = req.body.updater;
+    let { password, email } = req.body.updater;
+
+    password = bcrypt.hashSync(password, 8);
 
     const queryValue = {
       _id: new ObjectId(req.body.id),
@@ -73,6 +76,8 @@ export default async (req, res) => {
       ...(password && { password }),
       ...(email && { email }),
     };
+
+    console.log(`update var ${JSON.stringify(update.password)}`);
 
     const result = await db
       .collection("users")

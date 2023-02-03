@@ -1,6 +1,13 @@
 import getUser from "../lib/getUser";
 import dbConnect from "../lib/dbConnect";
-import { getCookie } from "cookies-next";
+import {
+  Card,
+  CardBody,
+  CardTitle,
+  CardImage,
+  ListGroup,
+  ListGroupItem,
+} from "reactstrap";
 
 const Profile = (props) => {
   console.log(props);
@@ -8,10 +15,25 @@ const Profile = (props) => {
   const { user } = props;
 
   return (
-    <div>
-      <h1>{user.email}</h1>
-      <h1>{user.accounts.name}</h1>
-    </div>
+    <Card
+      style={{
+        width: "18rem",
+      }}>
+      <img
+        alt='Card'
+        src='https://picsum.photos/id/237/200/300'
+        className='rounded-circle, d-inline'
+        style={{ width: "88px", height: "88px" }}
+      />
+      <CardBody>
+        <CardTitle tag='h5'>Account Information</CardTitle>
+      </CardBody>
+      <ListGroup flush>
+        <ListGroupItem>name: {user.name}</ListGroupItem>
+        <ListGroupItem>email: {user.email}</ListGroupItem>
+        <ListGroupItem>account ID: {user._id}</ListGroupItem>
+      </ListGroup>
+    </Card>
   );
 };
 export default Profile;
