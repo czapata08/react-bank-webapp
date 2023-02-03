@@ -1,6 +1,7 @@
 import { useAuth } from "../context/user.context";
 import { useState, useEffect } from "react";
 import { set } from "mongoose";
+import { Form, Input, Button, Card } from "reactstrap";
 
 export default function Deposit() {
   const [transferAmount, setTransfer] = useState("");
@@ -32,29 +33,32 @@ export default function Deposit() {
 
   return (
     <>
+      <p className='fw-light, my-2'>Transfer</p>
       {user && (
         <>
           {loading ? (
             <h1>Proccesing</h1>
           ) : (
-            <>
-              <h3>{user.accounts.name}</h3>
-              <p>{user.accounts.accountNumber}</p>
-              <form onSubmit={submit}>
-                <input
+            <div className='p-3, my-5'>
+              <h4 className='display-9'>{user.accounts.name}</h4>
+              <p>Account# {user.accounts.accountNumber}</p>
+              <Form onSubmit={submit}>
+                <Input
                   type='number'
                   placeholder='$ transfer amount'
                   onChange={(e) => setTransfer(Number(e.target.value))}
                   value={transferAmount}
                 />
-                <input
+                <Input
                   placeholder='Reciever Acc ID'
                   onChange={(e) => setRecieverID(e.target.value)}
-                  value={recieverId}></input>
-                <button>{loading ? "Loading... " : "Submit"}</button>
+                  value={recieverId}></Input>
+                <Button className='my-2'>
+                  {loading ? "Loading... " : "Submit"}
+                </Button>
                 <br />
-              </form>
-            </>
+              </Form>
+            </div>
           )}
         </>
       )}

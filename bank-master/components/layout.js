@@ -73,11 +73,6 @@ export default function Layout({ children }) {
                 </NavItem>
                 <NavItem>
                   <NavLink>
-                    <Link href='/support'>Support</Link>
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink>
                     <Link href='/update'>Update</Link>
                   </NavLink>
                 </NavItem>

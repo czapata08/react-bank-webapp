@@ -1,7 +1,7 @@
 import Services from "../components/services";
 import Promos from "../components/promos";
 import Footer from "../components/footer";
-import LoginForm from "../components/forms";
+import LoginForm from "../components/login";
 import Link from "next/link";
 
 const Home = () => {

@@ -59,6 +59,8 @@ export const AuthProvider = ({ children }) => {
         })
         .catch((error) => {
           reject(error);
+          alert(`Invalid email or password`);
+          console.log(error);
         });
     });
   };

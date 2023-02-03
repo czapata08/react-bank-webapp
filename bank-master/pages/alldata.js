@@ -82,10 +82,12 @@ const AllData = () => {
   }
 
   return (
-    <div
-      className='table table-striped table-bordered table-hover table-dark'
-      style={{ width: "fit-content" }}>
-      <Table />
+    <div className='container-fluid'>
+      <div
+        className='table table-striped table-bordered table-hover table-dark'
+        style={{ width: "fit-content", marginLeft: 0 }}>
+        <Table />
+      </div>
     </div>
   );
 };

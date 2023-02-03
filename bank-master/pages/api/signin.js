@@ -20,7 +20,7 @@ export default async function handler(req, res) {
     const isValid = await verifyPassword(password, user.password);
 
     if (!isValid) {
-      throw new Error("wrong email or password");
+      return res.status(422).json({ message: "Wrong Password!" });
     }
     const token = jwt.sign({ userId: user._id }, process.env.TOKEN_SECRET, {
       expiresIn: "1d",

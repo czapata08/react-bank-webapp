@@ -1,9 +1,10 @@
 import { useAuth } from "../context/user.context";
 import { useState, useEffect } from "react";
 import { set } from "mongoose";
+import { Form, Input, Button, Card } from "reactstrap";
 
 export default function Deposit(props) {
-  const [deposit, setAmount] = useState("");
+  const [deposit, setDeposit] = useState("");
   const [loading, setLoading] = useState(false);
   const user = props.user.user;
   console.log(props.user.user);
@@ -42,30 +43,34 @@ export default function Deposit(props) {
     //         bgcolor='dark'
     //         header='Deposit'
     //         body={`
+
     <>
+      <p className='fw-light, my-2'>Deposit</p>
       {user && (
         <>
           {loading ? (
             <h1>Proccesing</h1>
           ) : (
-            <>
-              <h3>{user.accounts.name}</h3>
-              <p>{user.accounts.accountNumber}</p>
-              <form onSubmit={submit}>
-                <input
+            <div className='p-3, my-5'>
+              <h4 className='display-9'>{user.accounts.name}</h4>
+              <p>Account# {user.accounts.accountNumber}</p>
+              <Form onSubmit={submit}>
+                <Input
                   type='number'
-                  placeholder='$ Deposit Amount'
-                  onChange={(e) => setAmount(Number(e.target.value))}
+                  placeholder='$ Withdraw Amount'
+                  onChange={(e) => setDeposit(Number(e.target.value))}
                   value={deposit}
                 />
-                <button>{loading ? "Loading... " : "Submit"}</button>
-                <br />
-              </form>
-            </>
+                <Button className='my-2'>
+                  {loading ? "Loading... " : "Submit"}
+                </Button>
+              </Form>
+            </div>
           )}
         </>
       )}
     </>
+
     //         }
     //       />
     //     </>
