@@ -10,7 +10,7 @@ Bootstrap
 <li>
 Nextjs
 </li>
-  </ul>
+</ul>
 
 <h3>API + Backend</h3>
 <p>MongoDB Atlas, Mongoose ORM, Node JS, Express </p>
