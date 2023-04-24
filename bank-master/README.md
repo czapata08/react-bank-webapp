@@ -10,9 +10,10 @@ Bootstrap
 <li>
 Nextjs
 </li>
+  </ul>
 
-<h3>API + Backend</3>
-<p>MongoDB Atlas, Mongoose ORM, Node JS </p>
+<h3>API + Backend</h3>
+<p>MongoDB Atlas, Mongoose ORM, Node JS, Express </p>
 
 <h3>Authentication</h3>
 <p> Custom JWT authentication </p>
@@ -20,5 +21,3 @@ Nextjs
 
 
 
-
-</ul>
